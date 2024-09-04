@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/novo',
       name: 'Novo',
       component: () => import('../views/NewCustomerView.vue')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('../views/LoginView.vue')
     }
   ]
 })
