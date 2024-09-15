@@ -1,49 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const email = ref('')
-const name = ref('')
-const address = ref('')
-const phone = ref('')
+const email = ref('eidiogoadm@gmail.com')
+const name = ref('Diogo Lima')
+const age = ref(21)
+const enterprise = ref('Comprar Site')
+/* const address = ref('')
+const phone = ref('') */
 
 import axios from 'axios'
-
-axios.defaults.baseURL = 'http://localhost:8000'
-axios.defaults.withCredentials = true
-axios.defaults.withXSRFToken = true
-
-const get = async () => {
-  try {
-    // Requisita o cookie CSRF e aguarda a resposta
-    
-    // Faz a requisição autenticada
-    const response = await axios.get('/api/user');
-    console.log(response.data);
-  } catch (error) {
-    console.error('Erro na requisição:', error);
-  }
-};
-
-get();
-
 
 async function store(event) {
   event.preventDefault()
 
-  const request = await fetch('http://localhost:3000/customers', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
+  axios
+    .post('/api/customer', {
       name: name.value,
-      email: email.value,
-      address: address.value,
-      phone: phone.value
+      age: age.value,
+      enterprise: enterprise.value
     })
-  })
-
-  console.log(request)
+    .then((reseponse) => {
+      console.log(reseponse)
+    })
 }
 </script>
 
