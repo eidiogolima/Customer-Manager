@@ -8,7 +8,7 @@ const phone = ref('')
 
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:8000/'
+axios.defaults.baseURL = 'http://localhost:8000'
 axios.defaults.withCredentials = true
 axios.defaults.withXSRFToken = true
 
@@ -17,7 +17,7 @@ const get = async () => {
     // Requisita o cookie CSRF e aguarda a resposta
     
     // Faz a requisição autenticada
-    const response = await axios.get('/api/users');
+    const response = await axios.get('/api/user');
     console.log(response.data);
   } catch (error) {
     console.error('Erro na requisição:', error);

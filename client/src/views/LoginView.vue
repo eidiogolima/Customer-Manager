@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+//Imports
+import { useUserStore } from '@/stores/useUserStore.ts'
 import axios from 'axios'
+import { ref } from 'vue'
 
 const email = ref('eidiogoadm@gmail.com')
 const password = ref('teste123')
@@ -9,31 +11,26 @@ axios.defaults.baseURL = 'http://localhost:8000/'
 axios.defaults.withCredentials = true
 axios.defaults.withXSRFToken = true
 
-const login = async (event) => {
-  event.preventDefault()
-  try {
-    // Requisita o cookie CSRF e aguarda a resposta
-    await axios.get('/sanctum/csrf-cookie')
+const userStore = useUserStore()
+userStore.fetchUser()
 
-    // Debug: Verifica os cookies armazenados
-    console.log(document.cookie)
+const login = async (event: any) => {
+  event.preventDefault()
+
+  try {
+    await axios.get('/sanctum/csrf-cookie')
 
     const payload = {
       email: email.value,
       password: password.value
     }
-
+    
     // Faz o login com o token CSRF
     await axios.post('/login', payload).then((response) => {
       console.log(response.data)
     })
 
-    await axios.get('/sanctum/csrf-cookie')
-
-
-    let response = await axios.get("/api/user");
-
-    console.log(response);
+    console.log(useUserStore().fetchUser())
 
     console.log('Login bem-sucedido')
   } catch (error) {
@@ -43,6 +40,7 @@ const login = async (event) => {
 </script>
 
 <template>
+  <h1>{{ userStore.user.name }}</h1>
   <form @submit="login">
     <input type="email" v-model="email" />
     <input type="password" v-model="password" />
