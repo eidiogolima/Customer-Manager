@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute} from 'vue-router';
 import DashboardLayout from './components/layouts/DashboardLayout.vue';
 import LoadingSnippet from './components/snippets/LoadingSnippet.vue';
 import axios from 'axios';
@@ -31,6 +31,7 @@ axios.interceptors.response.use((response) => {
 
 // Router Hooks para ativar o loading durante mudanças de rota
 const router = useRouter();
+const route = useRoute();
 router.beforeEach((to, from, next) => {
   isLoading.value = true;
   next();
@@ -46,7 +47,7 @@ router.afterEach(() => {
   <loading-snippet v-if="isLoading" />
 
   <!-- Conteúdo da aplicação -->
-  <div v-if="router.name !== 'login'">
+  <div v-if="route.name !== 'login'">
     <dashboard-layout>
       <RouterView />
     </dashboard-layout>
