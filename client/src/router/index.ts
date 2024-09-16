@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '../views/LoginView.vue';
 import HomePage from '../views/DashboardView.vue';
 import NewCustomer from '../views/NewCustomerView.vue';
+import Customer  from '../views/CustomerView.vue';
+import Customers  from '../views/AllCustomersView.vue';
 
 import axios from 'axios'
 
@@ -37,10 +39,24 @@ const routes = [
   },
   {
     path: '/novo',
-    name: 'Novo Cliente',
+    name: 'novo-cliente',
     component: NewCustomer,
     meta: { requiresAuth: true }, // Apenas para usuários autenticados
   },
+  {
+    path:'/clientes',
+    name: 'clientes',
+    component: Customers,
+    meta: { requiresAuth: true }, // Apenas para usuários autenticados
+
+  },
+  {
+    path: '/cliente/:id',
+    name: 'cliente',
+    component: Customer,
+    meta: { requiresAuth: true }, // Apenas para usuários autenticados
+  },
+
 
 
 ];

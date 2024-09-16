@@ -8,6 +8,10 @@ import axios from 'axios';
 // Estado global para o loading
 const isLoading = ref(false);
 
+axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.withXSRFToken = true;
+axios.defaults.withCredentials = true;
+
 // Axios Interceptors para controlar o loading nas requisições
 axios.interceptors.request.use((config) => {
   isLoading.value = true; // Ativar loading ao iniciar requisição
